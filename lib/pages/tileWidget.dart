@@ -19,15 +19,25 @@ class _TileWidgetState extends State<TileWidget> {
         widget.tile.finished ? ColorCode.BLUE : ColorCode.LIME_GREEN;
     return GestureDetector(
       onTap: () => finishTileTask(widget.tile),
-      child: SizedBox.square(
-        dimension: MediaQuery.of(context).size.width,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(10.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: ColorCode.BLACK_SHADOW,
+            blurRadius: 8.0,
+            offset: Offset(0, 4),
+            spreadRadius: -4.0,
           ),
-          child: Center(
-            child: getTile(widget.tile),
+        ]),
+        child: SizedBox.square(
+          dimension: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: background,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Center(
+              child: getContent(widget.tile),
+            ),
           ),
         ),
       ),
@@ -42,7 +52,7 @@ class _TileWidgetState extends State<TileWidget> {
     }
   }
 
-  Widget getTile(Tile tile) =>
+  Widget getContent(Tile tile) =>
       tile.finished ? getFinishedTile(tile) : getPendingTile(tile);
 
   Widget getPendingTile(Tile tile) {
@@ -54,7 +64,7 @@ class _TileWidgetState extends State<TileWidget> {
           color: ColorCode.GREY,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
-          fontSize: 12.0,
+          fontSize: 14.0,
           letterSpacing: 2.0,
         ),
       ),
@@ -66,7 +76,7 @@ class _TileWidgetState extends State<TileWidget> {
       child: LayoutBuilder(
         builder: (BuildContext, BoxConstraints) {
           return Icon(
-            Icons.task_alt,
+            Icons.task_alt_rounded,
             color: ColorCode.PEACH,
             size: BoxConstraints.biggest.width - 10.0,
           );
