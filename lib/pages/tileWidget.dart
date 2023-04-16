@@ -63,13 +63,14 @@ class _TileWidgetState extends State<TileWidget> {
 
   Widget getFinishedTile(Tile tile) {
     return Center(
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Icon(
-          Icons.task_alt,
-          color: ColorCode.PEACH,
-          size: MediaQuery.of(context).size.width - 25.0,
-        ),
+      child: LayoutBuilder(
+        builder: (BuildContext, BoxConstraints) {
+          return Icon(
+            Icons.task_alt,
+            color: ColorCode.PEACH,
+            size: BoxConstraints.biggest.width - 10.0,
+          );
+        },
       ),
     );
   }
