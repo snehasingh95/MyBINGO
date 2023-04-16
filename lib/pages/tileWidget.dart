@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:my_bingo/constants/ColorCode.dart';
 import 'package:my_bingo/model/tile.dart';
 
-class TileCard extends StatefulWidget {
-  const TileCard({super.key});
+class TileWidget extends StatefulWidget {
+  Tile tile;
+  TileWidget({super.key, required this.tile});
 
   @override
-  State<TileCard> createState() => _TileCardState();
+  State<TileWidget> createState() => _TileWidgetState();
 }
 
-class _TileCardState extends State<TileCard> {
+class _TileWidgetState extends State<TileWidget> {
   Tile tile = Tile(task: 'Tile Pending');
 
   @override
   Widget build(BuildContext context) {
-    Color background = tile.finished ? ColorCode.BLUE : ColorCode.LIME_GREEN;
+    Color background =
+        widget.tile.finished ? ColorCode.BLUE : ColorCode.LIME_GREEN;
     return GestureDetector(
-      onTap: () => finishTileTask(tile),
+      onTap: () => finishTileTask(widget.tile),
       child: SizedBox.square(
         dimension: MediaQuery.of(context).size.width,
         child: DecoratedBox(
@@ -27,7 +29,7 @@ class _TileCardState extends State<TileCard> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Center(
-            child: getTile(tile),
+            child: getTile(widget.tile),
           ),
         ),
       ),
