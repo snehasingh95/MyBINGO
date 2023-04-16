@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:my_bingo/constants/colorCode.dart';
+import 'package:my_bingo/model/grid.dart';
 import 'package:my_bingo/model/tile.dart';
-import 'package:my_bingo/pages/tileWidget.dart';
+import 'package:my_bingo/pages/gridWidget.dart';
 
 void main() => runApp(MaterialApp(
       home: Home(),
     ));
 
 class Home extends StatelessWidget {
-  Tile tile = Tile(task: 'Tile Pending');
+  late List<Tile> tiles = [
+    Tile(task: 'task1'),
+    Tile(task: 'task2'),
+  ];
+
+  late Grid grid = Grid(tiles: tiles, n_col: 2);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,7 @@ class Home extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
-        child: TileWidget(tile: tile),
+        child: GridWidget(grid: grid),
       ),
       backgroundColor: ColorCode.PEACH,
     );
