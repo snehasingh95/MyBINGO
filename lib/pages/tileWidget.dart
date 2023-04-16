@@ -13,8 +13,6 @@ class TileWidget extends StatefulWidget {
 }
 
 class _TileWidgetState extends State<TileWidget> {
-  Tile tile = Tile(task: 'Tile Pending');
-
   @override
   Widget build(BuildContext context) {
     Color background =
