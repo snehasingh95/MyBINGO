@@ -64,9 +64,10 @@ class _TileWidgetState extends State<TileWidget> {
           color: ColorCode.GREY,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
-          fontSize: 14.0,
+          fontSize: 12.0,
           letterSpacing: 2.0,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

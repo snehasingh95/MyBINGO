@@ -30,6 +30,10 @@
             "task": "Bottle Cap alley"
         },
         {
+            "task": "Free!",
+            "free": true
+        },
+        {
             "task": "Living in Hullabaloo"
         },
         {
@@ -37,10 +41,6 @@
         },
         {
             "task": "Met a yell leader?"
-        },
-        {
-            "task": "Free!",
-            "free": true
         },
         {
             "task": "Living off campus."
