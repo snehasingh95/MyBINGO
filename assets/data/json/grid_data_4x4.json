@@ -1,0 +1,55 @@
+{
+    "n_col": 4,
+    "title": "Aggie BINGO",
+    "tiles": [
+        {
+            "task": "FTA Football Game"
+        },
+        {
+            "task": "Pet Reveille"
+        },
+        {
+            "task": "Whooped."
+        },
+        {
+            "task": "Said Howdy to another Aggie."
+        },
+        {
+            "task": "Aggie Baseball"
+        },
+        {
+            "task": "Jorts?"
+        },
+        {
+            "task": "Midnight Yell?"
+        },
+        {
+            "task": "Been to muster?"
+        },
+        {
+            "task": "Bottle Cap alley"
+        },
+        {
+            "task": "Free!",
+            "free": true
+        },
+        {
+            "task": "Living in Hullabaloo"
+        },
+        {
+            "task": "Ate at the chicken"
+        },
+        {
+            "task": "Met a yell leader?"
+        },
+        {
+            "task": "Living off campus."
+        },
+        {
+            "task": "Parents came to A&m."
+        },
+        {
+            "task": "1st Gen Aggie?"
+        }
+    ]
+}
