@@ -3,12 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_bingo/constants/colorCode.dart';
+import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
-import 'package:my_bingo/pages/gridWidget.dart';
+import 'package:my_bingo/pages/gameScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
+    theme: ThemeData(
+      fontFamily: 'Roboto',
+    ),
     home: Home(),
   ));
 }
@@ -55,12 +59,14 @@ class _HomeState extends State<Home> {
 
     try {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('MyBINGO'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(15),
-          child: GridWidget(grid: grid),
+        // appBar: AppBar(
+        //   title: const Text('MyBINGO'),
+        // ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: GameScreen(grid: grid, difficulty: Difficulty.EASY),
+          ),
         ),
         backgroundColor: ColorCode.PEACH,
       );

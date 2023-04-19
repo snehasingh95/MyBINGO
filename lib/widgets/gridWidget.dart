@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_bingo/model/grid.dart';
-import 'package:my_bingo/pages/tileWidget.dart';
+import 'package:my_bingo/widgets/tileWidget.dart';
 
 class GridWidget extends StatefulWidget {
   Grid grid;

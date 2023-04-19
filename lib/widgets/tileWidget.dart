@@ -20,7 +20,7 @@ class _TileWidgetState extends State<TileWidget> {
     return GestureDetector(
       onTap: () => finishTileTask(widget.tile),
       child: DecoratedBox(
-        decoration: BoxDecoration(boxShadow: [
+        decoration: const BoxDecoration(boxShadow: [
           BoxShadow(
             color: ColorCode.BLACK_SHADOW,
             blurRadius: 8.0,
@@ -62,7 +62,6 @@ class _TileWidgetState extends State<TileWidget> {
         tile.task,
         style: const TextStyle(
           color: ColorCode.GREY,
-          fontFamily: 'Roboto',
           fontWeight: FontWeight.w500,
           fontSize: 12.0,
           letterSpacing: 2.0,

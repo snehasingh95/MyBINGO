@@ -78,6 +78,14 @@ flutter:
       fonts:
         - asset: fonts/Roboto/Roboto-Medium.ttf
           weight: 500
+    - family: Orbitron
+      fonts:
+        - asset: fonts/Orbitron/static/Orbitron-Medium.ttf
+          weight: 500
+    - family: Indie Flower
+      fonts:
+        - asset: fonts/Indie_Flower/IndieFlower-Regular.ttf
+          weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
