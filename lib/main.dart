@@ -1,32 +1,73 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_bingo/constants/colorCode.dart';
 import 'package:my_bingo/model/grid.dart';
-import 'package:my_bingo/model/tile.dart';
 import 'package:my_bingo/pages/gridWidget.dart';
 
-void main() => runApp(MaterialApp(
-      home: Home(),
-    ));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    home: Home(),
+  ));
+}
 
-class Home extends StatelessWidget {
-  late List<Tile> tiles = [
-    Tile(task: 'task1'),
-    Tile(task: 'task2'),
-  ];
+class Home extends StatefulWidget {
+  Home({super.key}) {
+    debugPrint("starting");
+  }
 
-  late Grid grid = Grid(tiles: tiles, n_col: 2);
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late Grid grid;
+
+  Future<void> readGridJson() async {
+    final String response =
+        await rootBundle.loadString('assets/data/json/grid_data_4x4.json');
+    // debugPrint(response);
+    Map<String, dynamic> data = await json.decode(response);
+    // debugPrint(data.toString());
+
+    setState(() {
+      grid = Grid.fromJSON(data);
+      debugPrint("Grid ready");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("init");
+    Future.delayed(Duration.zero, () async {
+      await readGridJson();
+      debugPrint(grid.toString());
+    });
+    debugPrint("done");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MyBINGO'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: GridWidget(grid: grid),
-      ),
-      backgroundColor: ColorCode.PEACH,
-    );
+    debugPrint("next");
+
+    try {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('MyBINGO'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: GridWidget(grid: grid),
+        ),
+        backgroundColor: ColorCode.PEACH,
+      );
+    } catch (e) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
