@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_bingo/constants/constants.dart';
 import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
+import 'package:my_bingo/model/tile.dart';
+import 'package:my_bingo/widgets/homeTileWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,22 +47,77 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'HomeScreen',
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/game', arguments: {
-                  "grid": grid,
-                  "difficulty": Difficulty.EASY,
-                });
-              },
-              child: const Text('Press Me'),
-            ),
+            getContent(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget getContent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        HomeTileWidget(
+          tile: Tile(task: 'M', finished: true),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        HomeTileWidget(
+          tile: Tile(task: 'y', finished: true),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        HomeTileWidget(
+          tile: Tile(task: 'B', finished: true),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        HomeTileWidget(
+          tile: Tile(task: 'I', finished: true),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        HomeTileWidget(
+          tile: Tile(task: 'N', finished: true),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        GestureDetector(
+          onTap: () {
+            debugPrint("Pressed");
+            Navigator.pushNamed(context, '/game', arguments: {
+              "grid": grid,
+              "difficulty": Difficulty.EASY,
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              HomeTileWidget(
+                tile: Tile(task: 'B', finished: false),
+              ),
+              const SizedBox(width: Constants.CROSS_AXIS_SPACING),
+              HomeTileWidget(
+                tile: Tile(task: 'E', finished: false),
+              ),
+              const SizedBox(width: Constants.CROSS_AXIS_SPACING),
+              HomeTileWidget(
+                tile: Tile(task: 'G', finished: true),
+              ),
+              const SizedBox(width: Constants.CROSS_AXIS_SPACING),
+              HomeTileWidget(
+                tile: Tile(task: 'I', finished: false),
+              ),
+              const SizedBox(width: Constants.CROSS_AXIS_SPACING),
+              HomeTileWidget(
+                tile: Tile(task: 'N', finished: false),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: Constants.MAIN_AXIS_SPACING),
+        HomeTileWidget(
+          tile: Tile(task: 'O', finished: true),
+        ),
+      ],
     );
   }
 }
