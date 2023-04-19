@@ -8,42 +8,57 @@ import 'package:my_bingo/widgets/gridWidget.dart';
 class GameScreen extends StatefulWidget {
   GameScreen({
     super.key,
-    required this.grid,
-    required this.difficulty,
   });
-
-  Grid grid;
-  Difficulty difficulty;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
 }
 
 class _GameScreenState extends State<GameScreen> {
+  late Grid grid;
+  late Difficulty difficulty;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          0, Constants.PAGE_MARGIN_TOP, 0, Constants.PAGE_MARGIN_BOTTOM),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // const SizedBox(height: Constants.PAGE_MARGIN_TOP),
-          getHeading(),
-          const SizedBox(height: Constants.VERTICAL_GAP),
-          getSubheading(),
-          const SizedBox(height: Constants.VERTICAL_GAP),
-          getGame(),
-          const SizedBox(height: Constants.VERTICAL_GAP),
-          getActions(),
-        ],
+    Map data = ModalRoute.of(context)?.settings.arguments as Map;
+    // debugPrint(data.toString());
+
+    grid = data["grid"];
+    difficulty = data["difficulty"];
+
+    // debugPrint(grid.toString());
+    // debugPrint(difficulty.toString());
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+                0, Constants.PAGE_MARGIN_TOP, 0, Constants.PAGE_MARGIN_BOTTOM),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // const SizedBox(height: Constants.PAGE_MARGIN_TOP),
+                getHeading(),
+                const SizedBox(height: Constants.VERTICAL_GAP),
+                getSubheading(),
+                const SizedBox(height: Constants.VERTICAL_GAP),
+                getGame(),
+                const SizedBox(height: Constants.VERTICAL_GAP),
+                getActions(),
+              ],
+            ),
+          ),
+        ),
       ),
+      backgroundColor: ColorCode.PEACH,
     );
   }
 
   Text getHeading() {
     return Text(
-      widget.grid.title,
+      grid.title,
       style: const TextStyle(
         color: ColorCode.BLUE,
         fontFamily: 'Orbitron',
@@ -56,7 +71,7 @@ class _GameScreenState extends State<GameScreen> {
 
   Text getSubheading() {
     return Text(
-      widget.difficulty.description,
+      difficulty.description,
       style: const TextStyle(
         color: ColorCode.GREY,
         fontFamily: 'Indie Flower',
@@ -73,7 +88,7 @@ class _GameScreenState extends State<GameScreen> {
       children: [
         getLeftAlignedIcon(
           Icons.speed_rounded,
-          widget.difficulty.level,
+          difficulty.level,
         ),
         getRightAlignedIcon(
           Icons.timer_outlined,
@@ -94,7 +109,7 @@ class _GameScreenState extends State<GameScreen> {
             children: [
               getLeftAlignedIcon(
                 Icons.speed_rounded,
-                widget.difficulty.level,
+                difficulty.level,
               ),
               getRightAlignedIcon(
                 Icons.timer_outlined,
@@ -105,7 +120,7 @@ class _GameScreenState extends State<GameScreen> {
           const SizedBox(height: Constants.VERTICAL_GAP),
           SizedBox.square(
             dimension: MediaQuery.of(context).size.width,
-            child: GridWidget(grid: widget.grid),
+            child: GridWidget(grid: grid),
           ),
         ],
       ),
