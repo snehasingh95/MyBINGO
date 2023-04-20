@@ -5,6 +5,7 @@ import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
 import 'package:my_bingo/widgets/backButton.dart';
 import 'package:my_bingo/widgets/gridWidget.dart';
+import 'package:my_bingo/widgets/winAlertBox.dart';
 
 class GameScreen extends StatefulWidget {
   GameScreen({
@@ -18,6 +19,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Grid grid;
   late Difficulty difficulty;
+  // bool won = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _GameScreenState extends State<GameScreen> {
 
     grid = data["grid"];
     difficulty = data["difficulty"];
+    grid.initCounts();
 
     // debugPrint(grid.toString());
     // debugPrint(difficulty.toString());
@@ -125,7 +128,16 @@ class _GameScreenState extends State<GameScreen> {
           const SizedBox(height: Constants.VERTICAL_GAP),
           SizedBox.square(
             dimension: MediaQuery.of(context).size.width,
-            child: GridWidget(grid: grid),
+            child: GridWidget(
+              grid: grid,
+              difficulty: difficulty,
+              onWin: (value) => showDialog(
+                context: context,
+                builder: ((context) => const WinAlertBox()),
+                barrierColor: ColorCode.WHITE_SHADOW,
+              ),
+              // {if (value) print("${difficulty.level} level BINGO!!")},
+            ),
           ),
         ],
       ),

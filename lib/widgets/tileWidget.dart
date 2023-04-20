@@ -6,7 +6,13 @@ import 'package:my_bingo/model/tile.dart';
 
 class TileWidget extends StatefulWidget {
   Tile tile;
-  TileWidget({super.key, required this.tile});
+  ValueChanged<int> onChange;
+  int indx;
+  TileWidget(
+      {super.key,
+      required this.tile,
+      required this.onChange,
+      required this.indx});
 
   @override
   State<TileWidget> createState() => _TileWidgetState();
@@ -18,37 +24,36 @@ class _TileWidgetState extends State<TileWidget> {
     Color background =
         widget.tile.finished ? ColorCode.BLUE : ColorCode.LIME_GREEN;
     return GestureDetector(
-      onTap: () => finishTileTask(widget.tile),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: ColorCode.BLACK_SHADOW,
-            blurRadius: 8.0,
-            offset: Offset(0, 4),
-            spreadRadius: -4.0,
-          ),
-        ]),
-        child: SizedBox.square(
-          dimension: MediaQuery.of(context).size.width,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
+      onTap: () => finishTileTask(widget.tile, widget.indx),
+      child: SizedBox.square(
+        dimension: MediaQuery.of(context).size.width,
+        child: AnimatedContainer(
+          decoration: BoxDecoration(
               color: background,
               borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Center(
-              child: getContent(widget.tile),
-            ),
+              boxShadow: const [
+                BoxShadow(
+                  color: ColorCode.BLACK_SHADOW,
+                  blurRadius: 8.0,
+                  offset: Offset(0, 4),
+                  spreadRadius: -4.0,
+                ),
+              ]),
+          duration: const Duration(milliseconds: 350),
+          child: Center(
+            child: getContent(widget.tile),
           ),
         ),
       ),
     );
   }
 
-  void finishTileTask(Tile tile) {
+  void finishTileTask(Tile tile, int indx) {
     if (!tile.finished) {
       setState(() {
         tile.finished = true;
       });
+      widget.onChange(indx);
     }
   }
 
