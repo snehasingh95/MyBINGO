@@ -28,19 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
     setState(() {
       grid = Grid.fromJSON(data);
-      debugPrint("Grid ready");
+      // debugPrint("Grid ready");
     });
   }
 
   @override
   void initState() {
     super.initState();
-    debugPrint("init");
+    // debugPrint("init");
     Future.delayed(Duration.zero, () async {
       await readGridJson();
-      debugPrint(grid.toString());
+      // debugPrint(grid.toString());
     });
-    debugPrint("done");
+    // debugPrint("done");
   }
 
   @override
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: Constants.MAIN_AXIS_SPACING),
         GestureDetector(
           onTap: () {
-            debugPrint("Pressed");
+            // debugPrint("Pressed");
             Navigator.pushNamed(context, '/game', arguments: {
               "grid": grid,
               "difficulty": Difficulty.EASY,
