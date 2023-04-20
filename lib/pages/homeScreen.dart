@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_bingo/constants/colorCode.dart';
 import 'package:my_bingo/constants/constants.dart';
 import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
@@ -53,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      backgroundColor: ColorCode.PEACH,
     );
   }
 
