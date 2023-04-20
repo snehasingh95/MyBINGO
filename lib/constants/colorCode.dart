@@ -11,4 +11,7 @@ class ColorCode {
   //shadows
   static const Color WHITE_SHADOW = Color.fromARGB(180, 255, 255, 255);
   static const Color BLACK_SHADOW = Color.fromARGB(127, 0, 0, 0);
+
+  //backgound
+  static const Color BACK_BUTTON_BG = Color.fromARGB(101, 255, 255, 255);
 }

@@ -3,6 +3,7 @@ import 'package:my_bingo/constants/colorCode.dart';
 import 'package:my_bingo/constants/constants.dart';
 import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
+import 'package:my_bingo/widgets/backButton.dart';
 import 'package:my_bingo/widgets/gridWidget.dart';
 
 class GameScreen extends StatefulWidget {
@@ -36,17 +37,21 @@ class _GameScreenState extends State<GameScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(
                 0, Constants.PAGE_MARGIN_TOP, 0, Constants.PAGE_MARGIN_BOTTOM),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Stack(
               children: [
-                // const SizedBox(height: Constants.PAGE_MARGIN_TOP),
-                getHeading(),
-                const SizedBox(height: Constants.VERTICAL_GAP),
-                getSubheading(),
-                const SizedBox(height: Constants.VERTICAL_GAP),
-                getGame(),
-                const SizedBox(height: Constants.VERTICAL_GAP),
-                getActions(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    getHeading(),
+                    const SizedBox(height: Constants.VERTICAL_GAP),
+                    getSubheading(),
+                    const SizedBox(height: Constants.VERTICAL_GAP),
+                    getGame(),
+                    const SizedBox(height: Constants.VERTICAL_GAP),
+                    getActions(),
+                  ],
+                ),
+                const backButton(),
               ],
             ),
           ),
