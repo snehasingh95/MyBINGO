@@ -39,7 +39,7 @@ class _TileWidgetState extends State<TileWidget> {
                   spreadRadius: -4.0,
                 ),
               ]),
-          duration: const Duration(milliseconds: 350),
+          duration: const Duration(milliseconds: 500),
           child: Center(
             child: getContent(widget.tile),
           ),

@@ -3,6 +3,7 @@ import 'package:my_bingo/constants/colorCode.dart';
 import 'package:my_bingo/constants/constants.dart';
 import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
+import 'package:my_bingo/services/actions.dart';
 import 'package:my_bingo/widgets/backButton.dart';
 import 'package:my_bingo/widgets/gridWidget.dart';
 import 'package:my_bingo/widgets/winAlertBox.dart';
@@ -151,6 +152,7 @@ class _GameScreenState extends State<GameScreen> {
         getLeftAlignedIcon(
           Icons.swap_horizontal_circle_outlined,
           "SWAP",
+          ActionService.swap,
         ),
         const DecoratedBox(
           decoration: BoxDecoration(
@@ -188,51 +190,77 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Row getLeftAlignedIcon(IconData icon, String description) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: ColorCode.BLUE,
-        ),
-        const SizedBox(
-          width: Constants.ICON_ICON_DESCRIPTION_GAP,
-        ),
-        Text(
-          // todo: add timer
-          description,
-          style: const TextStyle(
+  TextButton getLeftAlignedIcon(IconData icon, String description,
+      [Function? onPressed]) {
+    return TextButton(
+      onPressed: () {
+        if (onPressed != null) {
+          setState(() {
+            onPressed(grid.tiles);
+          });
+        }
+      },
+      style: const ButtonStyle(
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
             color: ColorCode.BLUE,
-            fontSize: 16.0,
-            letterSpacing: 2.0,
-            fontWeight: FontWeight.w500,
           ),
-        ),
-      ],
+          const SizedBox(
+            width: Constants.ICON_ICON_DESCRIPTION_GAP,
+          ),
+          Text(
+            // todo: add timer
+            description,
+            style: const TextStyle(
+              color: ColorCode.BLUE,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Row getRightAlignedIcon(IconData icon, String description) {
-    return Row(
-      children: [
-        Text(
-          // todo: add timer
-          description,
-          style: const TextStyle(
-            color: ColorCode.BLUE,
-            fontSize: 16.0,
-            letterSpacing: 2.0,
-            fontWeight: FontWeight.w500,
+  TextButton getRightAlignedIcon(IconData icon, String description,
+      [Function? onPressed]) {
+    return TextButton(
+      onPressed: () {
+        if (onPressed != null) {
+          setState(() {
+            onPressed(grid.tiles);
+          });
+        }
+      },
+      style: const ButtonStyle(
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+      ),
+      child: Row(
+        children: [
+          Text(
+            // todo: add timer
+            description,
+            style: const TextStyle(
+              color: ColorCode.BLUE,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(
-          width: Constants.ICON_ICON_DESCRIPTION_GAP,
-        ),
-        Icon(
-          icon,
-          color: ColorCode.BLUE,
-        ),
-      ],
+          const SizedBox(
+            width: Constants.ICON_ICON_DESCRIPTION_GAP,
+          ),
+          Icon(
+            icon,
+            color: ColorCode.BLUE,
+          ),
+        ],
+      ),
     );
   }
 }
