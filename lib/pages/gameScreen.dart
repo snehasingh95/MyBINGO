@@ -185,6 +185,7 @@ class _GameScreenState extends State<GameScreen> {
         getRightAlignedIcon(
           Icons.cyclone_outlined,
           "SPIN",
+          ActionService.spin,
         ),
       ],
     );
