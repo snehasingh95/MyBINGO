@@ -25,7 +25,7 @@ class _GridWidgetState extends State<GridWidget> {
     super.initState();
     List<Tile> tiles = widget.grid.tiles;
     for (int indx = 0; indx < tiles.length; indx++) {
-      if (tiles[indx].finished) checkBingo(indx);
+      if (tiles[indx].finished) widget.grid.bingo(indx);
     }
   }
 
@@ -48,7 +48,6 @@ class _GridWidgetState extends State<GridWidget> {
   }
 
   checkBingo(int indx) {
-    // setState(() {});
     widget.grid.bingo(indx);
     bool win = false;
     if (widget.difficulty == Difficulty.EASY) {
