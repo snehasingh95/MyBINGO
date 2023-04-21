@@ -20,7 +20,6 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Grid grid;
   late Difficulty difficulty;
-  // bool won = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,22 +90,6 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Row getGameDetails() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        getLeftAlignedIcon(
-          Icons.speed_rounded,
-          difficulty.level,
-        ),
-        getRightAlignedIcon(
-          Icons.timer_outlined,
-          "10:20",
-        ),
-      ],
-    );
-  }
-
   Widget getGame() {
     return Expanded(
       flex: 1,
@@ -114,16 +97,17 @@ class _GameScreenState extends State<GameScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               getLeftAlignedIcon(
                 Icons.speed_rounded,
                 difficulty.level,
               ),
-              getRightAlignedIcon(
-                Icons.timer_outlined,
-                "10:20",
-              ),
+              // getRightAlignedIcon(
+              //   Icons.timer_outlined,
+              //   "10:20",
+              // ),
             ],
           ),
           const SizedBox(height: Constants.VERTICAL_GAP),
@@ -158,7 +142,7 @@ class _GameScreenState extends State<GameScreen> {
             "n_col": grid.n_col,
           },
         ),
-        getWildCardButton(),
+        // getWildCardButton(),
         getRightAlignedIcon(
           Icons.cyclone_outlined,
           "SPIN",
