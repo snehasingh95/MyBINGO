@@ -153,51 +153,63 @@ class _GameScreenState extends State<GameScreen> {
           Icons.swap_horizontal_circle_outlined,
           "SWAP",
           ActionService.swap,
+          {
+            "tiles": grid.tiles,
+            "n_col": grid.n_col,
+          },
         ),
-        const DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: ColorCode.BLACK_SHADOW,
-                offset: Offset(0, 4),
-                blurRadius: 8,
-              )
-            ],
-          ),
-          child: CircleAvatar(
-            backgroundColor: ColorCode.CYAN,
-            radius: 35.0,
-            child: Center(
-              child: Text(
-                "Wild Cards",
-                style: TextStyle(
-                  color: ColorCode.GREY,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                  letterSpacing: 2.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
+        getWildCardButton(),
         getRightAlignedIcon(
           Icons.cyclone_outlined,
           "SPIN",
           ActionService.spin,
+          {
+            "tiles": grid.tiles,
+            "n_col": grid.n_col,
+          },
         ),
       ],
     );
   }
 
+  DecoratedBox getWildCardButton() {
+    return const DecoratedBox(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: ColorCode.BLACK_SHADOW,
+            offset: Offset(0, 4),
+            blurRadius: 8,
+          )
+        ],
+      ),
+      child: CircleAvatar(
+        backgroundColor: ColorCode.CYAN,
+        radius: 35.0,
+        child: Center(
+          child: Text(
+            "Wild Cards",
+            style: TextStyle(
+              color: ColorCode.GREY,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
+  }
+
   TextButton getLeftAlignedIcon(IconData icon, String description,
-      [Function? onPressed]) {
+      [Function? onPressed, Map? arguments]) {
     return TextButton(
       onPressed: () {
         if (onPressed != null) {
           setState(() {
-            onPressed(grid.tiles);
+            onPressed(arguments);
           });
         }
       },
@@ -229,12 +241,12 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   TextButton getRightAlignedIcon(IconData icon, String description,
-      [Function? onPressed]) {
+      [Function? onPressed, Map? arguments]) {
     return TextButton(
       onPressed: () {
         if (onPressed != null) {
           setState(() {
-            onPressed(grid.tiles);
+            onPressed(arguments);
           });
         }
       },
