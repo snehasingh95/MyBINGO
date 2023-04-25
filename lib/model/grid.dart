@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_bingo/model/tile.dart';
 
@@ -34,18 +36,11 @@ class Grid {
   void bingo(int indx) {
     int r = indx ~/ n_col;
     row_finished_count[r]++;
-    // print("row_finished_count: ");
-    // print(row_finished_count);
 
     int c = indx % n_col;
     col_finished_count[c]++;
-    // print("col_finished_count: ");
-    // print(col_finished_count);
 
     grid_finished_count++;
-    // print("grid_finished_count: ");
-    // print(grid_finished_count);
-    // print("");
   }
 
   bool isRowBingo(int indx) {
@@ -61,4 +56,25 @@ class Grid {
   bool isGridBingo(int indx) {
     return (grid_finished_count == n_items);
   }
+
+  static void printGrid(List<Tile> tiles) {
+    for (Tile tile in tiles) {
+      debugPrint(tile.task);
+    }
+  }
+
+  static void printDetailedGrid(List<Tile> tiles) {
+    int length = tiles.length;
+    int gridSize = sqrt(length).toInt();
+
+    for (int indx = 0; indx < length; indx++) {
+      int r = getRow(indx, gridSize), c = getRow(indx, gridSize);
+      debugPrint(
+          "indx: ${indx.toString().padLeft(2, '0')} row: $r col: $c -> ${tiles[indx].task}");
+    }
+  }
+
+  static int getIndx(int r, int c, int n_col) => r * n_col + c;
+  static int getRow(int indx, int n_col) => indx ~/ n_col;
+  static int getCol(int indx, int n_col) => indx % n_col;
 }

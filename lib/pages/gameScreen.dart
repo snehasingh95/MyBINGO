@@ -3,6 +3,7 @@ import 'package:my_bingo/constants/colorCode.dart';
 import 'package:my_bingo/constants/constants.dart';
 import 'package:my_bingo/constants/enum.dart';
 import 'package:my_bingo/model/grid.dart';
+import 'package:my_bingo/services/actions.dart';
 import 'package:my_bingo/widgets/backButton.dart';
 import 'package:my_bingo/widgets/gridWidget.dart';
 import 'package:my_bingo/widgets/winAlertBox.dart';
@@ -19,7 +20,6 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Grid grid;
   late Difficulty difficulty;
-  // bool won = false;
 
   @override
   Widget build(BuildContext context) {
@@ -90,22 +90,6 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Row getGameDetails() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        getLeftAlignedIcon(
-          Icons.speed_rounded,
-          difficulty.level,
-        ),
-        getRightAlignedIcon(
-          Icons.timer_outlined,
-          "10:20",
-        ),
-      ],
-    );
-  }
-
   Widget getGame() {
     return Expanded(
       flex: 1,
@@ -113,16 +97,17 @@ class _GameScreenState extends State<GameScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               getLeftAlignedIcon(
                 Icons.speed_rounded,
                 difficulty.level,
               ),
-              getRightAlignedIcon(
-                Icons.timer_outlined,
-                "10:20",
-              ),
+              // getRightAlignedIcon(
+              //   Icons.timer_outlined,
+              //   "10:20",
+              // ),
             ],
           ),
           const SizedBox(height: Constants.VERTICAL_GAP),
@@ -151,88 +136,128 @@ class _GameScreenState extends State<GameScreen> {
         getLeftAlignedIcon(
           Icons.swap_horizontal_circle_outlined,
           "SWAP",
+          ActionService.swap,
+          {
+            "tiles": grid.tiles,
+            "n_col": grid.n_col,
+          },
         ),
-        const DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: ColorCode.BLACK_SHADOW,
-                offset: Offset(0, 4),
-                blurRadius: 8,
-              )
-            ],
-          ),
-          child: CircleAvatar(
-            backgroundColor: ColorCode.CYAN,
-            radius: 35.0,
-            child: Center(
-              child: Text(
-                "Wild Cards",
-                style: TextStyle(
-                  color: ColorCode.GREY,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                  letterSpacing: 2.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
+        // getWildCardButton(),
         getRightAlignedIcon(
           Icons.cyclone_outlined,
           "SPIN",
+          ActionService.spin,
+          {
+            "tiles": grid.tiles,
+            "n_col": grid.n_col,
+          },
         ),
       ],
     );
   }
 
-  Row getLeftAlignedIcon(IconData icon, String description) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: ColorCode.BLUE,
-        ),
-        const SizedBox(
-          width: Constants.ICON_ICON_DESCRIPTION_GAP,
-        ),
-        Text(
-          // todo: add timer
-          description,
-          style: const TextStyle(
-            color: ColorCode.BLUE,
-            fontSize: 16.0,
-            letterSpacing: 2.0,
-            fontWeight: FontWeight.w500,
+  DecoratedBox getWildCardButton() {
+    return const DecoratedBox(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: ColorCode.BLACK_SHADOW,
+            offset: Offset(0, 4),
+            blurRadius: 8,
+          )
+        ],
+      ),
+      child: CircleAvatar(
+        backgroundColor: ColorCode.CYAN,
+        radius: 35.0,
+        child: Center(
+          child: Text(
+            "Wild Cards",
+            style: TextStyle(
+              color: ColorCode.GREY,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
-      ],
+      ),
     );
   }
 
-  Row getRightAlignedIcon(IconData icon, String description) {
-    return Row(
-      children: [
-        Text(
-          // todo: add timer
-          description,
-          style: const TextStyle(
+  TextButton getLeftAlignedIcon(IconData icon, String description,
+      [Function? onPressed, Map? arguments]) {
+    return TextButton(
+      onPressed: () {
+        if (onPressed != null) {
+          setState(() {
+            onPressed(arguments);
+          });
+        }
+      },
+      style: const ButtonStyle(
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
             color: ColorCode.BLUE,
-            fontSize: 16.0,
-            letterSpacing: 2.0,
-            fontWeight: FontWeight.w500,
           ),
-        ),
-        const SizedBox(
-          width: Constants.ICON_ICON_DESCRIPTION_GAP,
-        ),
-        Icon(
-          icon,
-          color: ColorCode.BLUE,
-        ),
-      ],
+          const SizedBox(
+            width: Constants.ICON_ICON_DESCRIPTION_GAP,
+          ),
+          Text(
+            // todo: add timer
+            description,
+            style: const TextStyle(
+              color: ColorCode.BLUE,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextButton getRightAlignedIcon(IconData icon, String description,
+      [Function? onPressed, Map? arguments]) {
+    return TextButton(
+      onPressed: () {
+        if (onPressed != null) {
+          setState(() {
+            onPressed(arguments);
+          });
+        }
+      },
+      style: const ButtonStyle(
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+      ),
+      child: Row(
+        children: [
+          Text(
+            // todo: add timer
+            description,
+            style: const TextStyle(
+              color: ColorCode.BLUE,
+              fontSize: 16.0,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(
+            width: Constants.ICON_ICON_DESCRIPTION_GAP,
+          ),
+          Icon(
+            icon,
+            color: ColorCode.BLUE,
+          ),
+        ],
+      ),
     );
   }
 }
